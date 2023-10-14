@@ -1,0 +1,21 @@
+server.port: 8047
+
+app:
+  topic-name: xmfueozy-my-kafka-topic
+  payment-feedback-topic-name: xmfueozy-payment-feedback-topic
+  group-id: xmfueozy-consumers
+
+spring:
+  kafka:
+    bootstrap-servers: dory.srvs.cloudkafka.com:9094
+    properties:
+      security.protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="xmfueozy" password="2XI0FnNCpKFOeNL5Mf7_CtbkhQIkxrpB";
+
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        enable.idempotence: false

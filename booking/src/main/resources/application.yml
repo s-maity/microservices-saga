@@ -1,0 +1,39 @@
+server:
+  port: 8010
+spring:
+  datasource:
+    url: jdbc:h2:mem:booking
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa.database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    defer-datasource-initialization: true
+    properties.hibernate.globally_quoted_identifiers: true
+    properties.hibernate.globally_quoted_identifiers_skip_column_definitions: true
+    show_sql: true
+  h2.console.enabled: true
+
+  kafka:
+    bootstrap-servers: dory.srvs.cloudkafka.com:9094
+    properties:
+      security.protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="xmfueozy" password="2XI0FnNCpKFOeNL5Mf7_CtbkhQIkxrpB";
+    consumer:
+      group-id: xmfueozy-consumers
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: latest
+
+app.event:
+  publish:
+    booking: http://localhost:8047/api/v1/event/booking
+  consumer:
+    payment-feedback:
+      topic-name: xmfueozy-payment-feedback-topic
+      consumer-group-id: xmfueozy-consumers
+
+    # Access H2 console : http://localhost:8050/h2-console/
