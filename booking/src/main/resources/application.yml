@@ -30,7 +30,7 @@ spring:
 
 app.event:
   publish:
-    booking: http://localhost:8047/api/v1/event/booking
+    booking: http://localhost:8047/api/v1/event/booking1
   consumer:
     payment-feedback:
       topic-name: xmfueozy-payment-feedback-topic

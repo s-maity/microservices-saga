@@ -63,7 +63,29 @@ URL: http://localhost:8010/api/v1/booking [POST]
 -----
 Note: Implementing SAGA (Choreography) is not very simple. Code is not very clean nad 
 maintainable. Maybe we should look for some framework like Camunda ? 
-
 Here I assume all the compensating transactions are non failure.
-How to handle the failure of compensating transactions in SAGA ?
+
+- How to handle the failure of compensating transactions in SAGA ?
+   
+    Compensating transactions can not fail. If it fails, it may lead to data inconsistency. 
+    In order to ensure compensating transaction doesn't fail, we can consider Event Sourcing and state management 
+    for services.
+
+    Event Sourcing & Event store
+     
+     https://microservices.io/patterns/data/event-sourcing.html
+
+      A good solution to this problem is to use event sourcing. Event sourcing persists the state of a business entity 
+      such an Order or a Customer as a sequence of state-changing events. Whenever the state of a business entity changes,
+      a new event is appended to the list of events. Since saving an event is a single operation, it is inherently atomic. 
+      The application reconstructs an entity’s current state by replaying the events.
+      Applications persist events in an event store, which is a database of events. 
+      The store has an API for adding and retrieving an entity’s events. 
+      The event store also behaves like a message broker. It provides an API that enables services to subscribe to 
+      events. When a service saves an event in the event store, it is delivered to all interested subscribers.
+
+    Consider using frameworks - 
+      AWS Step functions, Eventuate, AxonIQ, SEATA
+    
+
 

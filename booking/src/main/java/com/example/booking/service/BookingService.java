@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +27,7 @@ public class BookingService {
     @Value("${app.event.publish.booking}")
     private String requestPaymentPublishUrl;
 
+    @Transactional
     public void booking(BookingDto bookingDto) {
         validateRequest(bookingDto);
         BookingEntity savedBooking = saveBooking(bookingDto);
