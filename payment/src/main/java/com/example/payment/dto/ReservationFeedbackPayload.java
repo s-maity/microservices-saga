@@ -1,4 +1,4 @@
-package com.example.booking.dto;
+package com.example.payment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Builder
-public class BookingPayload {
+public class ReservationFeedbackPayload {
     private int bookingId;
-    private long amount;
-    private int noOfPersons;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String status;
 }

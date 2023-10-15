@@ -1,5 +1,7 @@
 package com.example.kafkatest.controller;
 
+import com.example.kafkatest.dto.ReservationFeedbackPayload;
+import com.example.kafkatest.dto.ReservationRequestPayload;
 import com.example.kafkatest.service.KafkaMessagePublisher;
 import com.example.kafkatest.dto.BookingPayload;
 import com.example.kafkatest.dto.PaymentFeedbackPayload;
@@ -30,6 +32,26 @@ public class EventController {
     public ResponseEntity<String> paymentFeedBack(@RequestBody PaymentFeedbackPayload payload) {
         try {
             publisher.paymentFeedback(payload);
+            return new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/reservation-request")
+    public ResponseEntity<String> requestReservation(@RequestBody ReservationRequestPayload payload) {
+        try {
+            publisher.requestReservation(payload);
+            return new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/reservation-feedback")
+    public ResponseEntity<String> reservationFeedBack(@RequestBody ReservationFeedbackPayload payload) {
+        try {
+            publisher.reservationFeedback(payload);
             return new ResponseEntity<>("", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

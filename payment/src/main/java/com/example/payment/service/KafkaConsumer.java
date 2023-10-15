@@ -14,9 +14,16 @@ public class KafkaConsumer {
     private final PaymentService paymentService;
 
     @KafkaListener(topics = "${app.topic-name}", groupId = "${app.group-id}")
-    public void consume(String bookingPayload) {
-        log.info("Consumed payload:{}", bookingPayload);
+    public void consumePaymentRequest(String bookingPayload) {
+        log.info("Consumed  payment request payload:{}", bookingPayload);
         var booking = JsonUtility.toPayment(bookingPayload);
         paymentService.payment(booking);
+    }
+
+    @KafkaListener(topics = "${app.reservation-feedback-topic-name}", groupId = "${app.group-id}")
+    public void consumeReservationFeedback(String reservationFeedback) {
+        log.info("Consumed payload:{}", reservationFeedback);
+        var reservationFeedbackPayload = JsonUtility.toReservationRequestFeedback(reservationFeedback);
+        paymentService.handleReservationRequestFeedback(reservationFeedbackPayload);
     }
 }

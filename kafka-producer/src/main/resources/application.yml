@@ -3,6 +3,8 @@ server.port: 8047
 app:
   topic-name: xmfueozy-my-kafka-topic
   payment-feedback-topic-name: xmfueozy-payment-feedback-topic
+  reservation-request-topic-name: xmfueozy-reservation-request-topic
+  reservation-feedback-topic-name: xmfueozy-reservation-feedback-topic
   group-id: xmfueozy-consumers
 
 spring:
