@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -24,6 +25,7 @@ public class ReservationService {
     @Value("${app.reservation-feedback-publish}")
     private String reservationFeedbackPublishUrl;
 
+    @Transactional
     public void reserve(BookingPayload bookingPayload) {
 
         try {
